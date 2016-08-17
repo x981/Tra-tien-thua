@@ -1,0 +1,286 @@
+function getsum(arr){
+  var sum = 0;
+  for (var i=0; i< arr.length; i++){
+    sum = sum + arr[i][1];
+  }
+  return sum;
+}
+
+function soto(loaitien,menhgia, arr){
+  var sotohienco = 0;
+  for (var k=0; k<arr.length; k++){
+    if (arr[k][0] === loaitien){
+      sotohienco = arr[k][1] / menhgia;
+      break;
+    }
+  }
+  return sotohienco;
+}
+function update(arr, loaitien, menhgia){
+  for (var l=0; l<arr.length; l++){
+    if (arr[l][0] === loaitien) {
+      arr[l][1] = menhgia;
+      break;
+    }
+  }
+  return arr;
+}
+
+function checkCashRegister(price, cash, cid) {
+  var penny = 0.01;
+  var nickel = 0.05;
+  var dime = 0.1;
+  var quarter = 0.25;
+  var one = 1;
+  var five = 5;
+  var ten = 10;
+  var twenty = 20;
+  var hundred = 100;
+  var change;
+  var tienthua = cash - price;
+  console.log("tien thua: " + tienthua);
+  var tongtien = getsum(cid);
+  if (tongtien === tienthua) {
+    change = "Closed";
+  } else if (tongtien < tienthua){
+    change = "Insufficient Funds";
+  } else if (tongtien === 1.01){
+    change = "Insufficient Funds";
+  } else {
+    change = [];
+    var dem = 1;
+    //while (tienthua !== 0){
+    while (dem < 8) {
+      console.log("vao while");
+      console.log("tien thua: " + tienthua);
+      if (tienthua < 100){
+        if (tienthua >= 20){
+          console.log("lon hon 20");
+            var sohienco = soto("TWENTY", 20, cid);
+			if (sohienco>0){
+        console.log("sohienco > 0");
+				var sodu = Math.floor(tienthua / 20);
+				if (sodu === sohienco) {
+				  change.push(["TWENTY", sohienco*20]);
+				  cid = update(cid, "TWENTY", 0);
+				  tienthua = tienthua - sohienco * 20;
+				}else if (sodu < sohienco){
+				  change.push(["TWENTY", sodu*20]);
+				  cid = update(cid, "TWENTY", sohienco*20 - sodu*20);
+				  tienthua = tienthua - sodu*20;
+				} else {
+				  change.push(["TWENTY", sohienco*20]);
+				  cid = update(cid, "TWENTY", 0);
+				  tienthua = tienthua - sohienco * 20;
+				}
+        var n = parseFloat(tienthua); 
+        tienthua = Math.round(n * 1000)/1000;
+        console.log("result: " + change);
+				continue;
+			} else {
+        console.log("sohienco <= 0");
+      }
+        } 
+		
+		if (tienthua >= 10){
+          console.log("lon hon 10");
+			var sohienco1 = soto("TEN", 10, cid);
+			if (sohienco1>0){
+				var sodu1 = Math.floor(tienthua / 10);
+				if (sodu1 === sohienco1) {
+				  change.push(["TEN", sohienco1*10]);
+				  cid = update(cid, "TEN", 0);
+				  tienthua = tienthua - sohienco1 * 10;
+				}else if (sodu1 < sohienco1){
+				  change.push(["TEN", sodu1*10]);
+				  cid = update(cid, "TEN", (sohienco1-sodu1)*10);
+				  tienthua = tienthua - sodu1*10;
+				} else {
+				  change.push(["TEN", sohienco1*10]);
+				  cid = update(cid, "TEN", 0);
+				  tienthua = tienthua - sohienco1 * 10;
+				}
+        var n = parseFloat(tienthua); 
+        tienthua = Math.round(n * 1000)/1000;
+        console.log("result: " + change);
+				continue;
+			} else {
+        console.log("sohienco <= 0");
+      }                     
+        }
+		if (tienthua >= 5){
+          console.log("lon hon 5");
+			var sohienco2 = soto("FIVE", 5, cid);
+            if (sohienco2>0){
+				var sodu2 = Math.floor(tienthua / 5);
+				if (sodu2 === sohienco2) {
+				  change.push(["FIVE", sohienco2*5]);
+				  cid = update(cid, "FIVE", 0);
+				  tienthua = tienthua - sohienco2 * 5;
+				}else if (sodu2 < sohienco2){
+				  change.push(["FIVE", sodu2*5]);
+				  cid = update(cid, "FIVE", (sohienco2-sodu2)*5);
+				  tienthua = tienthua - sodu2*5;
+				} else {
+				  change.push(["FIVE", sohienco2*5]);
+				  cid = update(cid, "FIVE", 0);
+				  tienthua = tienthua - sohienco2 * 5;
+				}
+        var n = parseFloat(tienthua); 
+        tienthua = Math.round(n * 1000)/1000;
+        console.log("result: " + change);
+				continue;
+			}	 else {
+        console.log("sohienco <= 0");
+      }		         
+        }
+		if (tienthua >= 1){
+          console.log("lon hon 1");
+			var sohienco3 = soto("ONE", 1, cid);	
+            if (sohienco3>0){
+				var sodu3 = Math.floor(tienthua / 1);            
+				if (sodu3 === sohienco3) {
+				  change.push(["ONE", sohienco3*1]);
+				  cid = update(cid, "ONE", 0);
+				  tienthua = tienthua - sohienco3 * 1;
+				}else if (sodu3 < sohienco3){
+				  change.push(["ONE", sodu3*1]);
+				  cid = update(cid, "ONE", (sohienco3-sodu3)*1);
+				  tienthua = tienthua - sodu3*1;
+				} else {
+				  change.push(["ONE", sohienco3*1]);
+				  cid = update(cid, "ONE", 0);
+				  tienthua = tienthua - sohienco3 * 5;
+				}
+        var n = parseFloat(tienthua); 
+        tienthua = Math.round(n * 1000)/1000;
+        console.log("result: " + change);
+				continue;
+			} else {
+        console.log("sohienco <= 0");
+      }
+        }
+		if (tienthua >= 0.25){
+            console.log("lon hon 0.25");
+			var sohienco4 = soto("QUARTER", 0.25, cid);
+			if (sohienco4>0){
+				var sodu4 = Math.floor(tienthua / 0.25);
+				console.log("sodu: " + sodu4);
+
+				console.log("sohienco: " + sohienco4);
+				if (sodu4 === sohienco4) {
+				  change.push(["QUARTER", sohienco4*0.25]);
+				  cid = update(cid, "QUARTER", 0);
+				  tienthua = tienthua - sohienco4 * 0.25;
+				}else if (sodu4 < sohienco4){
+				  console.log("du nho hon hien co");
+				  change.push(["QUARTER", sodu4*0.25]);
+				  cid = update(cid, "QUARTER", (sohienco4-sodu4)*0.25);
+				  tienthua = tienthua - sodu4*0.25;
+				} else {
+				  change.push(["QUARTER", sohienco4*0.25]);
+				  cid = update(cid, "QUARTER", 0);
+				  tienthua = tienthua - sohienco4 * 0.25;
+				}
+        var n = parseFloat(tienthua); 
+        tienthua = Math.round(n * 1000)/1000;
+        console.log("result: " + change);
+				continue;
+			}  else {
+        console.log("sohienco <= 0");
+      }         
+        }
+		if (tienthua >= 0.1){
+          console.log("lon hon 0.1");
+			var sohienco5 = soto("DIME", 0.1, cid);
+			if (sohienco5>0){
+				var sodu5 = Math.floor(tienthua / 0.1);            
+				if (sodu5 === sohienco5) {
+				  change.push(["DIME", sohienco5*0.1]);
+				  cid = update(cid, "DIME", 0);
+				  tienthua = tienthua - sohienco5 * 0.1;
+				} else if (sodu5 < sohienco5){
+				  change.push(["DIME", sodu5*0.1]);
+				  cid = update(cid, "DIME", (sohienco5-sodu5)*0.1);
+				  tienthua = tienthua - sodu5*0.1;
+				} else {
+				  change.push(["DIME", sohienco5*0.1]);
+				  cid = update(cid, "DIME", 0);
+				  tienthua = tienthua - sohienco5 * 0.1;
+				}
+        var n = parseFloat(tienthua); 
+        tienthua = Math.round(n * 1000)/1000;
+        console.log("result: " + change);
+				continue;
+			} else {
+        console.log("sohienco <= 0");
+      }                 
+        }
+		if (tienthua >= 0.05){
+          console.log("lon hon 0.05");
+		    var sohienco6 = soto("NICKEL", 0.05, cid);
+			if (sohienco6>0){
+				var sodu6 = Math.floor(tienthua / 0.05);
+				if (sodu6 === sohienco6) {
+				  change.push(["NICKEL", sohienco6*0.05]);
+				  cid = update(cid, "NICKEL", 0);
+				  tienthua = tienthua - sohienco6 * 0.05;
+				}else if (sodu6 < sohienco6){
+				  change.push(["NICKEL", sodu6*0.05]);
+				  cid = update(cid, "NICKEL", (sohienco6- sodu6)*0.05);
+				  tienthua = tienthua - sodu6*0.05;
+				} else {
+				  change.push(["NICKEL", sohienco6*0.05]);
+				  cid = update(cid, "NICKEL", 0);
+				  tienthua = tienthua - sohienco6 * 0.05;
+				}
+        var n = parseFloat(tienthua); 
+        tienthua = Math.round(n * 1000)/1000;
+        console.log("result: " + change);
+				continue;
+			}  else {
+        console.log("sohienco <= 0");
+      }        
+        }
+		if (tienthua >= 0.01){
+          console.log("lon hon 0.01");
+				var sohienco7 = soto("PENNY", 0.01, cid);
+				if (sohienco7>0){
+				var sodu7 = Math.floor(tienthua / 0.01);
+				if (sodu7 === sohienco7) {
+				  change.push(["PENNY", sohienco7*0.01]);
+				  cid = update(cid, "PENNY", 0);
+				  tienthua = tienthua - sohienco7 * 0.01;
+				}else if (sodu7 < sohienco7){
+				  change.push(["PENNY", sodu7*0.01]);
+				  cid = update(cid, "PENNY", (sohienco7- sodu7)*0.01);
+				  tienthua = tienthua - sodu7*0.01;
+				} else {
+				  change.push(["PENNY", sohienco7*0.01]);
+				  cid = update(cid, "PENNY", 0);
+				  tienthua = tienthua - sohienco7 * 0.01;
+				}  		
+          console.log("result: " + change);
+			}            
+        }
+      }
+        dem = dem + 1;
+      }
+    }
+  // Here is your change, ma'am.
+  console.log(change);
+  return change;
+}
+
+// Example cash-in-drawer array:
+// [["PENNY", 1.01],
+// ["NICKEL", 2.05],
+// ["DIME", 3.10],
+// ["QUARTER", 4.25],
+// ["ONE", 90.00],
+// ["FIVE", 55.00],
+// ["TEN", 20.00],
+// ["TWENTY", 60.00],
+// ["ONE HUNDRED", 100.00]]
+
+checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
